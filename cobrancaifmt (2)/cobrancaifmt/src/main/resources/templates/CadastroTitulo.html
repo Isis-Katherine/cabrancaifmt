@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+<title>Cadastro de Título</title>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-primary">
+  <a class="navbar-brand">Cobrança</a>
+</nav>
+
+<form action="/titulos" method="POST">
+
+  <div class="alert alert-success alert-dismissible" role="alert"
+       th:if="${!#strings.isEmpty(mensagem)}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <span th:text="${mensagem}">Salvo com sucesso!</span>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Novo título</div>
+    <div class="card-body">
+      <div class="form-group row">
+        <label for="descricao" class="col-sm-2 col-form-label">Descrição</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dataVencimento" class="col-sm-2 col-form-label">Data de Vencimento</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="dataVencimento" name="dataVencimento"
+                 placeholder="dd/mm/aaaa" maxlength="10">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="valor" class="col-sm-2 col-form-label">Valor</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="valor" name="valor">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="status" class="col-sm-2 col-form-label">Status</label>
+        <div class="col-sm-2">
+          <select class="form-control" id="status" name="status">
+            <option value="PENDENTE">Pendente</option>
+            <option value="RECEBIDO">Recebido</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+  // Coloca as barras automaticamente enquanto o usuário digita a data
+  document.getElementById('dataVencimento').addEventListener('input', function (e) {
+    var v = e.target.value.replace(/\D/g, '');   // remove tudo que não for número
+    if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+    if (v.length > 5) v = v.slice(0, 5) + '/' + v.slice(5, 9);
+    e.target.value = v;
+  });
+</script>
+</body>
+</html>
